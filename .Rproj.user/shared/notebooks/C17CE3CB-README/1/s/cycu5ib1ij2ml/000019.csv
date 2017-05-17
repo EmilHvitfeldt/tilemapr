@@ -1,0 +1,7 @@
+"0","states_map <- hex_usa(d = 0.5)"
+"0","ggplot(crimes, aes(map_id = state)) +"
+"0","  geom_map(aes(fill = Murder), map = states_map) +"
+"0","  expand_limits(x = states_map$long, y = states_map$lat) +"
+"0","  geom_text(data = hex_usa(d = 0.5, center = TRUE), "
+"0","            aes(x = long, y = lat, label = states_abb), "
+"0","            inherit.aes = FALSE)"

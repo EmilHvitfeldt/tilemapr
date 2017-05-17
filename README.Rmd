@@ -1,0 +1,145 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+## Overview
+
+R functions for creating square and hextile maps for various countries (only USA for now). 
+
+## Installation
+
+```{r, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("EmilHvitfeldt/tilemapr")
+library(tilemapr)
+```
+
+## Usage
+
+Tile grid maps are good alternative when the population isn't of much interest. Below we see a minimal example using ggplot2 and `geom_map()`:
+
+```{r}
+library(ggplot2)
+
+# Creating data
+crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
+states_map <- square_usa()
+
+ggplot(crimes, aes(map_id = state)) +
+  geom_map(aes(fill = Murder), map = states_map) +
+  expand_limits(x = states_map$long, y = states_map$lat)
+```
+
+All the functions include a number of parameters to control the resulting data.frame. The two most important ones are the `d` and `center`. `d` is a kind of diameter parameter which is used to control the size of the tiles. And `center` make the function gives us a data.frame with the coordinates of the center of the tile.
+
+```{r}
+states_map <- hex_usa(d = 0.5)
+
+ggplot(crimes, aes(map_id = state)) +
+  geom_map(aes(fill = Murder), map = states_map) +
+  expand_limits(x = states_map$long, y = states_map$lat) +
+  geom_text(data = hex_usa(d = 0.5, center = TRUE), 
+            aes(x = long, y = lat, label = states_abb), 
+            inherit.aes = FALSE)
+```
+
+We see here that DC is floating, this will be a common issue. It can be resolved by either removing it with `exclude` or to plotting a dataless map underneath:
+
+```{r}
+states_map <- hex_usa(d = 0.5)
+
+ggplot(states_map, aes(map_id = region)) +
+  geom_map(aes(), map = states_map) +
+  geom_map(data = crimes, map = states_map,
+           aes(fill = Murder, map_id = state)) +
+  expand_limits(x = states_map$long, y = states_map$lat) +
+  geom_text(data = hex_usa(d = 0.5, center = TRUE), 
+            aes(x = long, y = lat, label = states_abb), 
+            inherit.aes = FALSE)
+```
+
+Lastly some of the functions have different layout, which are picked using the `style`.
+
+```{r, echo=FALSE}
+library(gridExtra)
+
+states_map <- square_usa(style = "The Guardian")
+
+q1 <- ggplot(crimes, aes(map_id = state)) +
+  geom_map(aes(fill = Murder), map = square_usa(style = "NPR")) +
+  expand_limits(x = c(-1, 13), y = c(-2, 9)) +
+  labs(title = "NPR") + 
+  guides(fill = "none") +
+  theme_void() + 
+  coord_fixed(ratio = 1)
+q2 <- ggplot(crimes, aes(map_id = state)) +
+  geom_map(aes(fill = Murder), map = square_usa(style = "The New York Times")) +
+  expand_limits(x = c(-1, 13), y = c(-2, 9)) +
+  labs(title = "The New York Times") + 
+  guides(fill = "none") +
+  theme_void() + 
+  coord_fixed(ratio = 1)
+q3 <- ggplot(crimes, aes(map_id = state)) +
+  geom_map(aes(fill = Murder), map = square_usa(style = "538")) +
+  expand_limits(x = c(-1, 13), y = c(-2, 9)) +
+  labs(title = "538") + 
+  guides(fill = "none") +
+  theme_void() + 
+  coord_fixed(ratio = 1)
+q4 <- ggplot(crimes, aes(map_id = state)) +
+  geom_map(aes(fill = Murder), map = square_usa(style = "Propublica")) +
+  expand_limits(x = c(-1, 13), y = c(-2, 9)) +
+  labs(title = "Propublica") + 
+  guides(fill = "none") +
+  theme_void() + 
+  coord_fixed(ratio = 1)
+q5 <- ggplot(crimes, aes(map_id = state)) +
+  geom_map(aes(fill = Murder), map = square_usa(style = "Bloomberg")) +
+  expand_limits(x = c(-1, 13), y = c(-2, 9)) +
+  labs(title = "Bloomberg") + 
+  guides(fill = "none") +
+  theme_void() + 
+  coord_fixed(ratio = 1)
+q6 <- ggplot(crimes, aes(map_id = state)) +
+  geom_map(aes(fill = Murder), map = square_usa(style = "The Guardian")) +
+  expand_limits(x = c(-1, 13), y = c(-2, 9)) +
+  labs(title = "The Guardian") + 
+  guides(fill = "none") +
+  theme_void() + 
+  coord_fixed(ratio = 1)
+q7 <- ggplot(crimes, aes(map_id = state)) +
+  geom_map(aes(fill = Murder), map = square_usa(style = "Wall Street Journal")) +
+  expand_limits(x = c(-1, 13), y = c(-2, 9)) +
+  labs(title = "Wall Street Journal") + 
+  guides(fill = "none") +
+  theme_void() + 
+  coord_fixed(ratio = 1)
+q8 <- ggplot(crimes, aes(map_id = state)) +
+  geom_map(aes(fill = Murder), map = square_usa(style = "WNYC")) +
+  expand_limits(x = c(-1, 13), y = c(-2, 9)) +
+  labs(title = "WNYC") + 
+  guides(fill = "none") +
+  theme_void() + 
+  coord_fixed(ratio = 1)
+q9 <- ggplot(crimes, aes(map_id = state)) +
+  geom_map(aes(fill = Murder), map = square_usa(style = "The Marshall Project")) +
+  expand_limits(x = c(-1, 13), y = c(-2, 9)) +
+  labs(title = "The Marshall Project") + 
+  guides(fill = "none") +
+  theme_void() + 
+  coord_fixed(ratio = 1)
+
+grid.arrange(q1, q2, q3, q4, q5, q6, q7, q8, q9, ncol = 3, nrow = 3)
+```
+
+
