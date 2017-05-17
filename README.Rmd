@@ -21,7 +21,6 @@ R functions for creating square and hextile maps for various countries (only USA
 ```{r, eval = FALSE}
 # install.packages("devtools")
 devtools::install_github("EmilHvitfeldt/tilemapr")
-library(tilemapr)
 ```
 
 ## Usage
@@ -29,7 +28,8 @@ library(tilemapr)
 Tile grid maps are good alternative when the population isn't of much interest. Below we see a minimal example using ggplot2 and `geom_map()`:
 
 ```{r}
-library(ggplot2)
+library(tidyverse)
+library(tilemapr)
 
 # Creating data
 crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
@@ -49,7 +49,7 @@ ggplot(crimes, aes(map_id = state)) +
   geom_map(aes(fill = Murder), map = states_map) +
   expand_limits(x = states_map$long, y = states_map$lat) +
   geom_text(data = hex_usa(d = 0.5, center = TRUE), 
-            aes(x = long, y = lat, label = states_abb), 
+            aes(x = long, y = lat, label = region_abr), 
             inherit.aes = FALSE)
 ```
 
@@ -64,13 +64,13 @@ ggplot(states_map, aes(map_id = region)) +
            aes(fill = Murder, map_id = state)) +
   expand_limits(x = states_map$long, y = states_map$lat) +
   geom_text(data = hex_usa(d = 0.5, center = TRUE), 
-            aes(x = long, y = lat, label = states_abb), 
+            aes(x = long, y = lat, label = region_abr), 
             inherit.aes = FALSE)
 ```
 
 Lastly some of the functions have different layout, which are picked using the `style`.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE}
 library(gridExtra)
 
 states_map <- square_usa(style = "The Guardian")

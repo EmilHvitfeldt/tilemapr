@@ -1,0 +1,6 @@
+"0","# install.packages(""devtools"")"
+"0","devtools::install_github(""EmilHvitfeldt/tilemapr"")"
+"2","Skipping install of 'tilemapr' from a github remote, the SHA1 (707eaa75) has not changed since last install.
+  Use `force = TRUE` to force installation
+"
+"0","library(tilemapr)"
