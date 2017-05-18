@@ -1,14 +1,14 @@
 {
     "collab_server" : "",
-    "contents" : "^.*\\.Rproj$\n^\\.Rproj\\.user$\n^data-raw$\n^README\\.Rmd$\n",
+    "contents" : "^.*\\.Rproj$\n^\\.Rproj\\.user$\n^data-raw$\n^README\\.Rmd$\n^README-.*\\.png$\n",
     "created" : 1495033201413.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "3179362967",
+    "hash" : "62189501",
     "id" : "76FAD969",
-    "lastKnownWriteTime" : 1495042215,
-    "last_content_update" : 1495042215665,
+    "lastKnownWriteTime" : 1495048136,
+    "last_content_update" : 1495048136,
     "path" : "~/Documents/Academia/Github/tilemapr/.Rbuildignore",
     "project_path" : ".Rbuildignore",
     "properties" : {
