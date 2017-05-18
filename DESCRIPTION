@@ -1,7 +1,7 @@
 Package: tilemapr
 Type: Package
 Title: R functions for square and hextile maps
-Version: 0.1.0
+Version: 0.1.001
 Authors@R: person("Emil", "Hvitfeldt", email = "emilhhvitfeldt@gmail.com", role = c("aut", "cre"))
 Description: This package is a collection of functions to create data.frames 
     for mapping geographical data to tile grids.

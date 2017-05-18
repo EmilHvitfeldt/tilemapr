@@ -1,4 +1,5 @@
-"0","library(ggplot2)"
+"0","library(tidyverse)"
+"0","library(tilemapr)"
 "0","# Creating data"
 "0","crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)"
 "0","states_map <- square_usa()"

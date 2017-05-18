@@ -1,14 +1,14 @@
 {
     "collab_server" : "",
-    "contents" : "Package: tilemapr\nType: Package\nTitle: R functions for square and hextile maps\nVersion: 0.1.0\nAuthors@R: person(\"Emil\", \"Hvitfeldt\", email = \"emilhhvitfeldt@gmail.com\", role = c(\"aut\", \"cre\"))\nDescription: This package is a collection of functions to create data.frames \n    for mapping geographical data to tile grids.\nDepends:\n    R (>= 3.0.0)\nImports:\n    dplyr (>= 0.5.0)\nLicense: MIT + file LICENSE\nEncoding: UTF-8\nLazyData: true\nRoxygenNote: 6.0.1\n",
+    "contents" : "Package: tilemapr\nType: Package\nTitle: R functions for square and hextile maps\nVersion: 0.1.001\nAuthors@R: person(\"Emil\", \"Hvitfeldt\", email = \"emilhhvitfeldt@gmail.com\", role = c(\"aut\", \"cre\"))\nDescription: This package is a collection of functions to create data.frames \n    for mapping geographical data to tile grids.\nDepends:\n    R (>= 3.0.0)\nImports:\n    dplyr (>= 0.5.0)\nLicense: MIT + file LICENSE\nEncoding: UTF-8\nLazyData: true\nRoxygenNote: 6.0.1\n",
     "created" : 1495040001617.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "4032726355",
+    "hash" : "1761982061",
     "id" : "52D03567",
-    "lastKnownWriteTime" : 1495040328,
-    "last_content_update" : 1495040328890,
+    "lastKnownWriteTime" : 1495132381,
+    "last_content_update" : 1495132381669,
     "path" : "~/Documents/Academia/Github/tilemapr/DESCRIPTION",
     "project_path" : "DESCRIPTION",
     "properties" : {

@@ -20,10 +20,15 @@ R functions for creating square and hextile maps for various countries (only USA
 
 ```{r, eval = FALSE}
 # install.packages("devtools")
-devtools::install_github("EmilHvitfeldt/tilemapr")
+devtools::install_github("EmilHvitfeldt/tilemapr", force = TRUE)
 ```
 
 ## Usage
+
+```{r, include=FALSE}
+devtools::install_github("EmilHvitfeldt/tilemapr", force = TRUE)
+```
+
 
 Tile grid maps are good alternative when the population isn't of much interest. Below we see a minimal example using ggplot2 and `geom_map()`:
 
@@ -142,4 +147,6 @@ q9 <- ggplot(crimes, aes(map_id = state)) +
 grid.arrange(q1, q2, q3, q4, q5, q6, q7, q8, q9, ncol = 3, nrow = 3)
 ```
 
+## References
 
+I have gotten the corrent layouts from [http://blog.yanofsky.info/ (square_usa)](http://blog.yanofsky.info/post/117635988235/there-appears-to-be-some-disagreement-on-the?tweet=tweet) and [http://blog.apps.npr.org/ (hex_usa)](http://blog.apps.npr.org/2015/05/11/hex-tile-maps.html)

@@ -10,7 +10,7 @@ Installation
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("EmilHvitfeldt/tilemapr")
+devtools::install_github("EmilHvitfeldt/tilemapr", force = TRUE)
 ```
 
 Usage
@@ -40,7 +40,7 @@ ggplot(crimes, aes(map_id = state)) +
   expand_limits(x = states_map$long, y = states_map$lat)
 ```
 
-![](README-unnamed-chunk-3-1.png)
+![](README-unnamed-chunk-4-1.png)
 
 All the functions include a number of parameters to control the resulting data.frame. The two most important ones are the `d` and `center`. `d` is a kind of diameter parameter which is used to control the size of the tiles. And `center` make the function gives us a data.frame with the coordinates of the center of the tile.
 
@@ -55,7 +55,7 @@ ggplot(crimes, aes(map_id = state)) +
             inherit.aes = FALSE)
 ```
 
-![](README-unnamed-chunk-4-1.png)
+![](README-unnamed-chunk-5-1.png)
 
 We see here that DC is floating, this will be a common issue. It can be resolved by either removing it with `exclude` or to plotting a dataless map underneath:
 
@@ -72,8 +72,13 @@ ggplot(states_map, aes(map_id = region)) +
             inherit.aes = FALSE)
 ```
 
-![](README-unnamed-chunk-5-1.png)
+![](README-unnamed-chunk-6-1.png)
 
 Lastly some of the functions have different layout, which are picked using the `style`.
 
-![](README-unnamed-chunk-6-1.png)
+![](README-unnamed-chunk-7-1.png)
+
+References
+----------
+
+I have gotten the corrent layouts from [http://blog.yanofsky.info/ (square\_usa)](http://blog.yanofsky.info/post/117635988235/there-appears-to-be-some-disagreement-on-the?tweet=tweet) and [http://blog.apps.npr.org/ (hex\_usa)](http://blog.apps.npr.org/2015/05/11/hex-tile-maps.html)
