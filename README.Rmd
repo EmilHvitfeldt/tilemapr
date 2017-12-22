@@ -8,11 +8,13 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-"
+  fig.path = "man/figures/README-"
 )
 ```
 
 ## Overview
+
+[![Travis build status](https://travis-ci.org/EmilHvitfeldt/tilemapr.svg?branch=master)](https://travis-ci.org/EmilHvitfeldt/tilemapr)
 
 R functions for creating square and hextile maps for various countries (only USA for now). 
 
@@ -32,7 +34,7 @@ devtools::install_github("EmilHvitfeldt/tilemapr", force = TRUE)
 
 Tile grid maps are good alternative when the population isn't of much interest. Below we see a minimal example using ggplot2 and `geom_map()`:
 
-```{r}
+```{r, message=FALSE}
 library(tidyverse)
 library(tilemapr)
 

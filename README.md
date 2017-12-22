@@ -3,6 +3,8 @@
 Overview
 --------
 
+[![Travis build status](https://travis-ci.org/EmilHvitfeldt/tilemapr.svg?branch=master)](https://travis-ci.org/EmilHvitfeldt/tilemapr)
+
 R functions for creating square and hextile maps for various countries (only USA for now).
 
 Installation
@@ -20,15 +22,6 @@ Tile grid maps are good alternative when the population isn't of much interest. 
 
 ``` r
 library(tidyverse)
-#> Loading tidyverse: ggplot2
-#> Loading tidyverse: tibble
-#> Loading tidyverse: tidyr
-#> Loading tidyverse: readr
-#> Loading tidyverse: purrr
-#> Loading tidyverse: dplyr
-#> Conflicts with tidy packages ----------------------------------------------
-#> filter(): dplyr, stats
-#> lag():    dplyr, stats
 library(tilemapr)
 
 # Creating data
@@ -40,7 +33,7 @@ ggplot(crimes, aes(map_id = state)) +
   expand_limits(x = states_map$long, y = states_map$lat)
 ```
 
-![](README-unnamed-chunk-4-1.png)
+![](man/figures/README-unnamed-chunk-4-1.png)
 
 All the functions include a number of parameters to control the resulting data.frame. The two most important ones are the `d` and `center`. `d` is a kind of diameter parameter which is used to control the size of the tiles. And `center` make the function gives us a data.frame with the coordinates of the center of the tile.
 
@@ -55,7 +48,7 @@ ggplot(crimes, aes(map_id = state)) +
             inherit.aes = FALSE)
 ```
 
-![](README-unnamed-chunk-5-1.png)
+![](man/figures/README-unnamed-chunk-5-1.png)
 
 We see here that DC is floating, this will be a common issue. It can be resolved by either removing it with `exclude` or to plotting a dataless map underneath:
 
@@ -72,11 +65,11 @@ ggplot(states_map, aes(map_id = region)) +
             inherit.aes = FALSE)
 ```
 
-![](README-unnamed-chunk-6-1.png)
+![](man/figures/README-unnamed-chunk-6-1.png)
 
 Lastly some of the functions have different layout, which are picked using the `style`.
 
-![](README-unnamed-chunk-7-1.png)
+![](man/figures/README-unnamed-chunk-7-1.png)
 
 References
 ----------

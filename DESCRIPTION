@@ -7,8 +7,10 @@ Description: This package is a collection of functions to create data.frames
     for mapping geographical data to tile grids.
 Depends:
     R (>= 3.0.0)
-Imports:
-    dplyr (>= 0.5.0)
+Imports: 
+    dplyr (>= 0.5.0),
+    magrittr,
+    ggplot2
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

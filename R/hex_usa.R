@@ -12,6 +12,7 @@
 #'   from the output. Matched with lowercase full state names.
 #' @return The available styles for this functions are "NPR".
 #' @examples
+#' \dontrun{
 #' library(ggplot2)
 #' crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
 #' states_map <- hex_usa()
@@ -28,6 +29,8 @@
 #'   geom_text(data = hex_usa(d = 0.5, center = TRUE),
 #'             aes(x = long, y = lat, label = states_abb),
 #'             inherit.aes = FALSE)
+#'}
+#'@export
 hex_usa <- function(d = 0.95, center = FALSE, style = "NPR",
                     size = 1, long_offset = 0, lat_offset = 0,
                     exclude = character()) {
@@ -48,34 +51,34 @@ hex_usa <- function(d = 0.95, center = FALSE, style = "NPR",
   r <- a * 2 / sqrt(3)
 
   dat0 <- hex_usa_data %>%
-    filter(style == STYLE) %>%
-    select(- style) %>%
-    mutate(long = long * size,
-           lat = lat * size * (r + a / sqrt(3)))
+    dplyr::filter(style == STYLE) %>%
+    dplyr::select(- style) %>%
+    dplyr::mutate(long = ~long * size,
+                  lat = ~lat * size * (r + a / sqrt(3)))
 
   a <- size / 2 * d
   r <- a * 2 / sqrt(3)
 
-  dat1 <- rbind(dat0 %>% mutate(long = long, lat = lat + r),
-                dat0 %>% mutate(long = long + a, lat = lat + a / sqrt(3)),
-                dat0 %>% mutate(long = long + a, lat = lat - a / sqrt(3)),
-                dat0 %>% mutate(long = long, lat = lat - r),
-                dat0 %>% mutate(long = long - a, lat = lat - a / sqrt(3)),
-                dat0 %>% mutate(long = long - a, lat = lat + a / sqrt(3))) %>%
-    mutate(group = as.numeric(group))
+  dat1 <- rbind(dat0 %>% dplyr::mutate(long = ~long, lat = ~lat + r),
+                dat0 %>% dplyr::mutate(long = ~long + a, lat = ~lat + a / sqrt(3)),
+                dat0 %>% dplyr::mutate(long = ~long + a, lat = ~lat - a / sqrt(3)),
+                dat0 %>% dplyr::mutate(long = ~long, lat = ~lat - r),
+                dat0 %>% dplyr::mutate(long = ~long - a, lat = ~lat - a / sqrt(3)),
+                dat0 %>% dplyr::mutate(long = ~long - a, lat = ~lat + a / sqrt(3))) %>%
+    dplyr::mutate(group = as.numeric(~group))
 
   if (center) {
     dat2 <- dat0 %>%
-      mutate(long = long - dat1[165, "long"] + long_offset,
-             lat = lat - dat1[165, "lat"] + lat_offset) %>%
-      filter(!(region %in% exclude))
+      dplyr::mutate(long = ~long - dat1[165, "long"] + long_offset,
+                    lat = ~lat - dat1[165, "lat"] + lat_offset) %>%
+      dplyr::filter(!(~region %in% exclude))
     return(dat2)
   } else {
     dat2 <- dat1 %>%
-      mutate(long = long - dat1[165, "long"] + long_offset,
-             lat = lat - dat1[165, "lat"] + lat_offset) %>%
-      filter(!(region %in% exclude))
+      dplyr::mutate(long = ~long - dat1[165, "long"] + long_offset,
+                    lat = ~lat - dat1[165, "lat"] + lat_offset) %>%
+      dplyr::filter(!(~region %in% exclude))
     return(dat2[order(dat2$region), ] %>%
-             mutate(order = 1:(306 - length(exclude) * 6)))
+             dplyr::mutate(order = 1:(306 - length(exclude) * 6)))
   }
 }

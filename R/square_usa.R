@@ -14,6 +14,7 @@
 #'   "The New York Times", "538", "Propublica", "Bloomberg", "The Guardian",
 #'   "Wall Street Journal", "WNYC" or "The Marshall Project".
 #' @examples
+#' \dontrun{
 #' library(ggplot2)
 #' crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
 #' states_map <- square_usa()
@@ -30,6 +31,8 @@
 #'   geom_text(data = square_usa(d = 0.5, center = TRUE),
 #'             aes(x = long, y = lat, label = states_abb),
 #'             inherit.aes = FALSE)
+#'}
+#'@export
 square_usa <- function(d = 0.95, center = FALSE, style = "NPR",
                        size = 1, long_offset = 0, lat_offset = 0,
                        exclude = character()) {
@@ -51,29 +54,29 @@ square_usa <- function(d = 0.95, center = FALSE, style = "NPR",
   d <- d / 2 * size
 
   dat0 <- square_usa_data %>%
-    filter(style == STYLE) %>%
-    select(- style) %>%
-    mutate(long = long * size,
-           lat = lat * size)
+    dplyr::filter(style == STYLE) %>%
+    dplyr::select(- style) %>%
+    dplyr::mutate(long = ~long * size,
+                  lat = ~lat * size)
 
-  dat1 <- rbind(dat0 %>% mutate(long = long + d, lat = lat + d),
-                dat0 %>% mutate(long = long - d, lat = lat + d),
-                dat0 %>% mutate(long = long - d, lat = lat - d),
-                dat0 %>% mutate(long = long + d, lat = lat - d)) %>%
-    mutate(group = as.numeric(group))
+  dat1 <- rbind(dat0 %>% dplyr::mutate(long = ~long + d, lat = ~lat + d),
+                dat0 %>% dplyr::mutate(long = ~long - d, lat = ~lat + d),
+                dat0 %>% dplyr::mutate(long = ~long - d, lat = ~lat - d),
+                dat0 %>% dplyr::mutate(long = ~long + d, lat = ~lat - d)) %>%
+    dplyr::mutate(group = as.numeric(~group))
 
   if (center) {
     dat2 <- dat0 %>%
-      mutate(long = long - dat1[114, "long"] + long_offset,
-             lat = lat - dat1[114, "lat"] + lat_offset) %>%
-      filter(!(region %in% exclude))
+      dplyr::mutate(long = ~long - dat1[114, "long"] + long_offset,
+                    lat = ~lat - dat1[114, "lat"] + lat_offset) %>%
+      dplyr::filter(!(~region %in% exclude))
     return(dat2)
   } else {
     dat2 <- dat1 %>%
-      mutate(long = long - dat1[114, "long"] + long_offset,
-             lat = lat - dat1[114, "lat"] + lat_offset) %>%
-      filter(!(region %in% exclude))
+      dplyr::mutate(long = ~long - dat1[114, "long"] + long_offset,
+                    lat = ~lat - dat1[114, "lat"] + lat_offset) %>%
+      dplyr::filter(!(~region %in% exclude))
     return(dat2[order(dat2$region), ] %>%
-             mutate(order = 1:(204 - length(exclude) * 4)))
+             dplyr::mutate(order = 1:(204 - length(exclude) * 4)))
   }
 }

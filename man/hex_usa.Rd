@@ -32,6 +32,7 @@ The available styles for this functions are "NPR".
 Creates hexagonal tile map for the states of USA.
 }
 \examples{
+\dontrun{
 library(ggplot2)
 crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
 states_map <- hex_usa()
@@ -48,4 +49,5 @@ ggplot(crimes, aes(map_id = state)) +
   geom_text(data = hex_usa(d = 0.5, center = TRUE),
             aes(x = long, y = lat, label = states_abb),
             inherit.aes = FALSE)
+}
 }
